@@ -13,55 +13,65 @@ import math
 # GitHub and Python syntax. I promise you'll learn tons of more involved stuff as the year 
 # progresses on your subteam!!
 
-# TODO: if your IDE throws and a "Module Not Found" error on line 1 and/or 2 when you run 
-# this code, you need to use pip (or pip3) to install numpy. Importing libraries
-# is a crucial part of Python, and pip is a great way to quickly install them to
-# your computer. 
-# You can run "pip install numpy" to download the numpy library.
 
-# TODO: Use the "git checkout -b" command to create a new branch in the repository
-# and switch to it. Name your branch your uniqname, and run "git status" to make sure
-# you successfully switched to it. If it says "on branch {uniqname}", you did it right!
-
-# To practice with Python, you'll write a couple functions to manipulate a numpy array,
-# as well as a main script to run those functions on a sample array
-
-# TODO: Complete the function fillArray()
 # This function fills a numpy array with values from data_list in order.
 # If size is specified, the array is declared with shape (1, size). If size is 
 # unspecified, the array is declared with the same number of rows and columns, which is math.sqrt(len(data_list))
 def fillArray(data_list, size=None):
     arr = None
     if size == None:
-        # TODO: initialize "arr" with equal number of rows and columns (hint: use np.empty())
+        #  variable equal to the length of square array
+        length = int(math.sqrt(len(data_list)))
+        # sets arr to the size of the length by length
+        arr = np.empty([length, length])
         # check your work:
         if (arr.shape == (math.sqrt(len(data_list)), math.sqrt(len(data_list)))): print("Array Initialized Correctly!")
+
+     
     else:
-        # TODO: initialize "arr" with 1 row and {size} columns
+        # arr is declared with shape (1, size)
+        arr  = np.empty(1, size)
         if (arr.shape == (1, size)): print("Array Initialized Correctly!") # check your work: prints the shape of the array
-    # TODO: Use a for loop to fill arr with each item in data list, in order
-    
+
+   # Traverses the data_list for each entry
+    for x in range(len(data_list)):
+        # adds each entry to arr
+        arr.flat[x] = data_list[x]
+           
     # returns the array
     return arr
 
-# TODO: Complete the main script
 # Lists are a common Python container, similar to vectors in C++ and MATLAB
 list = [1, 2, 3, 4] # this is a really simple list, with 5 elements
 
-# TODO: Call fillArray() on list (with or without a size argument -- up to you!), then store the return
-# array in a variable
+# fills arr with the list
+arr = fillArray(list)
 
-# TODO: Do some cool matrix math with the numpy array! There's a lot of operations built into numpy.
-# I don't care how you manipulate the array, but do 3 operations on it (they can be super basic, like 
-# .T or adding/subtracting a column)
-    # 1. operation 1
-    # 2. operation 2
-    # 3. operation 3
+# prints out initial arr
+print(f"initial Array: {arr}")
 
-# TODO: 3-D arrays are also common in Python. Append a third dimension to your matrix (hint: use np.expand_dims())
+# 1. operation 1
+ones = np.ones(2, dtype=int)
+# adds one to each element
+arr = arr + ones
+# prints out the array after operation 1
+print(f"1st mod Array: {arr}")
 
-# TODO: replace None with your matrix variable to print the final array
-print(f"Final Array: {None}")
+# 2. operation 2
+# multiplies each element by itself
+arr = arr * arr
+# prints out the array after operation 2
+print(f"2nd mod Array: {arr}")
+
+# 3. operation 3
+# divides each element by 3
+arr = arr /3
+
+# adds an aditional axis to the array
+arr = np.expand_dims(arr, axis=2)
+
+# prints final array
+print(f"Final Array: {arr}")
 
 # TODO: Push your final changes to your GitHub branch in 3 steps:
 #   1. Stage your changes for commit using the "git add" command. You can type the filename,
